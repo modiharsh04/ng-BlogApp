@@ -12,6 +12,7 @@ import { User } from '../../models/user';
 export class LoginComponent implements OnInit {
 	private user:User = new User();
 	alrt:string = "";
+	loading:boolean = false;
 
 	constructor(private auth:AuthService,private router:Router) { }
 
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit {
 
 	login(){
 		this.alrt = ""
+		this.loading = true;
 		this.auth.login(this.user)
 					.then(res => this.router.navigate(['/dashboard']))
 					.catch(err => {
@@ -26,6 +28,7 @@ export class LoginComponent implements OnInit {
 							this.alrt = "Server error";
 						else
 							this.alrt = "Wrong credentials";
+						this.loading = false;
 					});
 	}
 

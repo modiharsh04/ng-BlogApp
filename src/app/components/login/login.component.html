@@ -16,7 +16,12 @@
 			      <div *ngIf="alrt" class="alert alert-danger" role="alert">
 			        {{alrt}}
 			      </div>
-			      <button type="submit" [disabled]="!logForm.form.valid" class="btn btn-success">Login</button>
+			      <button *ngIf="!loading" type="submit" [disabled]="!logForm.form.valid" class="btn btn-success">
+			      	<span>Login</span>
+			      </button>
+			      <button *ngIf="loading" class="btn btn-success">
+			      	<div class="loader"></div>
+			      </button>
 			      <button class="btn btn-dark float-right" routerLink="/register" routerLinkActive="active">Register</button>
 			    </form>
 			  </div>

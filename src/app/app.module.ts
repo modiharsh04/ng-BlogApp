@@ -16,6 +16,7 @@ import { LoginGuard } from './guard/loginRedirect.gaurd';
 import { HeaderComponent } from './components/header/header.component';
 import { BlogsComponent } from './components/blogs/blogs.component';
 import { BlogsService } from './services/blogs.service';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { BlogsService } from './services/blogs.service';
     DashboardComponent,
     HeaderComponent,
     BlogsComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
