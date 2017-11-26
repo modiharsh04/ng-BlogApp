@@ -8,7 +8,6 @@ import { User } from '../models/user';
 
 @Injectable()
 export class AuthService {
-
 	private BASE_URL: string = 'http://localhost:8000';
 	private headers: Headers = new Headers({'Content-Type': 'application/json'});
 	private isAuthenticated = new Subject<boolean>();
@@ -62,7 +61,14 @@ export class AuthService {
 	loginSuccess(token:string){
 		this.isAuthenticated.next(true);
 		localStorage.setItem('token',token);
-		this.delay(new JwtHelper().getTokenExpirationDate(token).getTime() - Date.now()-5000)
+		let jwh = new JwtHelper();
+		var loggedUser = jwh.decodeToken(token);
+		loggedUser = {
+			'username': loggedUser.username,
+			'email': loggedUser.email
+		}
+		localStorage.setItem('loggedUser', JSON.stringify(loggedUser));
+		this.delay(jwh.getTokenExpirationDate(token).getTime() - Date.now()-5000)
 			.then(()=>{
 				if (tokenNotExpired())
 					this.refresh(localStorage.getItem('token'));

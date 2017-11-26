@@ -9,7 +9,7 @@ import { User } from '../../models/user';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-	private user:User = new User();
+	private user:User = {};
 
 	constructor(private router: Router,private auth:AuthService) { }
 

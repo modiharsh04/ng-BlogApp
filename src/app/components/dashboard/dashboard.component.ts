@@ -16,10 +16,8 @@ export class DashboardComponent implements OnInit {
   constructor(private auth:AuthService,private blog:BlogsService) { }
 
   ngOnInit() {
-    this.blog.getUser(localStorage.getItem('token'))
-              .then(usr => {
-                this.user = usr;
-              }).catch(err => this.alrt='No user Found');
+    this.user = JSON.parse(localStorage.getItem('loggedUser')) as User;
+    console.log(this.user);
   }
 
   removeUser(){

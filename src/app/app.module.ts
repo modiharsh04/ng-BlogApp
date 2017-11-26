@@ -17,6 +17,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { BlogsComponent } from './components/blogs/blogs.component';
 import { BlogsService } from './services/blogs.service';
 import { FooterComponent } from './components/footer/footer.component';
+import { BlogComponent } from './components/blog/blog.component';
+import { AuthorComponent } from './components/author/author.component';
 
 
 @NgModule({
@@ -28,6 +30,8 @@ import { FooterComponent } from './components/footer/footer.component';
     HeaderComponent,
     BlogsComponent,
     FooterComponent,
+    BlogComponent,
+    AuthorComponent,
   ],
   imports: [
     BrowserModule,

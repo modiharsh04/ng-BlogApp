@@ -19,7 +19,7 @@ export class Safe {
   styleUrls: ['./blogs.component.scss']
 })
 export class BlogsComponent implements OnInit {
-	private blogs:Blog[];
+	blogs:Blog[];
   private err:string = "";
 
   constructor(private blogService:BlogsService) { }
