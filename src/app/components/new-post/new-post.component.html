@@ -1,0 +1,31 @@
+<div class="container">
+	<div class="row justify-content-md-center">
+		<div class="col">
+			<div class="card rounded-0 box-shadow--2dp">
+			  <div class="card-body">
+			  	<h4 class="card-title" style="color: blue">New Blog Form</h4>
+			    <form (ngSubmit)="newPost()" #blogForm="ngForm">
+			      <div class="form-group">
+			        <label for="subject">Subject</label>
+			    	<input type="text" class="form-control" id="subject" placeholder="Enter Subject/Title" [(ngModel)]="blog.subject" name="subject" required>
+			      </div>
+			      <div class="form-group">
+			    	<label for="content">Content</label>
+			    	<textarea class="form-control" id="content" placeholder="Enter Your Stuff" [(ngModel)]="blog.content" rows="15" name="content" required></textarea>
+			      </div>
+			      <div *ngIf="alrt" class="alert alert-danger" role="alert">
+			        {{alrt}}
+			      </div>
+			      <button *ngIf="!loading" type="submit" [disabled]="!blogForm.form.valid" class="btn btn-success">
+			      	<span>Add</span>
+			      </button>
+			      <button *ngIf="loading" class="btn btn-success">
+			      	<div class="loader"></div>
+			      </button>
+			      <button class="btn btn-dark float-right" (click)="goBack()">back</button>
+			    </form>
+			  </div>
+			</div>
+		</div>
+	</div>
+</div>

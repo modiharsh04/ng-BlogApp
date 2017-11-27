@@ -25,6 +25,7 @@ export class BlogComponent implements OnInit {
   					.subscribe(id => 
   						this.blogservice.getBlog(+id)
 							.then(blog => this.blog = blog)
+              .catch(err => err)
 					);
 
   }

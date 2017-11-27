@@ -3,21 +3,21 @@ import { Headers, Http } from '@angular/http';
 import { Router } from '@angular/router';
 import { JwtHelper, tokenNotExpired } from 'angular2-jwt';
 import 'rxjs/add/operator/toPromise';
-import { Subject } from 'rxjs/Rx';
+import { BehaviorSubject } from 'rxjs/Rx';
 import { User } from '../models/user';
 
 @Injectable()
 export class AuthService {
 	private BASE_URL: string = 'http://localhost:8000';
 	private headers: Headers = new Headers({'Content-Type': 'application/json'});
-	private isAuthenticated = new Subject<boolean>();
+	private isAuthenticated = new BehaviorSubject<boolean>(tokenNotExpired());
 	isAuth$ = this.isAuthenticated.asObservable();
 
 	constructor(
 		private http:Http,
 		private router:Router,
 		private jwh:JwtHelper
-		) { }
+		) {}
 
 	login(user:User): Promise<any> {
 		let url = `${this.BASE_URL}/login`;
@@ -68,10 +68,12 @@ export class AuthService {
 			'email': loggedUser.email
 		}
 		localStorage.setItem('loggedUser', JSON.stringify(loggedUser));
-		this.delay(jwh.getTokenExpirationDate(token).getTime() - Date.now()-5000)
-			.then(()=>{
+		this.delay(jwh.getTokenExpirationDate(token).getTime() - Date.now() - 5000)
+			.then((val)=>{
 				if (tokenNotExpired())
 					this.refresh(localStorage.getItem('token'));
+				else
+					this.logout()
 			})
 			.catch(err => this.handleError);
 		return Promise.resolve(true);

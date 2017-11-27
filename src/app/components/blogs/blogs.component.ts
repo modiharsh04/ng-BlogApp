@@ -8,7 +8,6 @@ export class Safe {
   constructor(private sanitizer:DomSanitizer){}
 
   transform(style) {
-    // return this.sanitizer.bypassSecurityTrustStyle(style);
     return this.sanitizer.bypassSecurityTrustHtml(style);
   }
 }
@@ -19,7 +18,7 @@ export class Safe {
   styleUrls: ['./blogs.component.scss']
 })
 export class BlogsComponent implements OnInit {
-	blogs:Blog[];
+	blogs:Blog[] = new Array();
   private err:string = "";
 
   constructor(private blogService:BlogsService) { }
@@ -31,7 +30,19 @@ export class BlogsComponent implements OnInit {
   getBlogs(){
     this.err = "";
     this.blogService.getBlogs()
-            .then(blogs => this.blogs = blogs)
+            .then((blogs) => {
+              blogs.forEach(blg =>{
+                let b:Blog = {};
+                b.content = blg.content;
+                b.author = blg.author;
+                b.id = blg.id;
+                b.last_modified = blg.last_modified;
+                b.subject = blg.subject;
+                if (b.content.length >295)
+                  b.content = b.content.substring(0,295).concat('.....');
+                this.blogs.push(b);
+              })
+            })
             .catch(err => {
               this.err = "Can not connect to server at the moment!"
             });

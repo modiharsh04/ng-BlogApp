@@ -1,15 +1,28 @@
 <div class="container">
+	<div *ngIf="!blog" class="row justify-content-center">
+		<div class="card border-0 box-shadow--8dp">
+		  <div class="card-header h3 bg-warning font-weight-bold text-center text-danger">SORRY!!!</div>
+		  <div class="card-body">
+		  	<p class="card-text">Cannot find blog</p>
+		  </div>
+		</div>
+	</div>
 	<div class="my-5 row justify-content-center">
 		<div class="col">
-			<div *ngIf="blog" class="card border-0 box-shadow--2dp">
-			  <div class="card-header h3 bg-primary font-weight-bold text-center text-white">{{blog.subject}}</div>
+			<div *ngIf="blog" class="card border-0 rounded box-shadow--4dp">
+			  <div class="card-header h3 bg-teal font-weight-bold text-center text-white">{{blog.subject}}</div>
 			  <div class="card-body">
 			  	<p class="card-text" [innerHTML] = "blog.content || safeStyle"></p>
+			  	<div class="text-right">
+  	  		  	<a class="text-info font-weight-bold" routerLink="/{{blog.author.username}}">
+  	  			  	By : {{blog.author.username || 'Anonymous'}}
+  	  		  	</a>
+  	  		  	</div>
 			  </div>
 			  <div class="card-footer py-2">
-			  	<span class="float-left text-success font-weight-bold">Author : {{blog.author.username || 'Anonymous'}}</span>
-			  	<small>
-			  	<span class="float-right">Modified : {{blog.last_modified}}</span></small>
+			  	<div>
+			  		<small>Modified : {{blog.last_modified}}</small>
+			  	</div>
 		  	  </div>
 			</div>
 		</div>

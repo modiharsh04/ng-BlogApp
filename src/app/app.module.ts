@@ -19,6 +19,7 @@ import { BlogsService } from './services/blogs.service';
 import { FooterComponent } from './components/footer/footer.component';
 import { BlogComponent } from './components/blog/blog.component';
 import { AuthorComponent } from './components/author/author.component';
+import { NewPostComponent } from './components/new-post/new-post.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { AuthorComponent } from './components/author/author.component';
     FooterComponent,
     BlogComponent,
     AuthorComponent,
+    NewPostComponent,
   ],
   imports: [
     BrowserModule,

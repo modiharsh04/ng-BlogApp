@@ -1,7 +1,7 @@
 <div class="container">
-	<div *ngIf="err" class="my-5 row justify-content-center">
+	<div *ngIf="err" class="row justify-content-center">
 		<div class="col-auto">
-			<div class="card border-0 align-middle box-shadow--8dp">
+			<div class="card border-0 box-shadow--8dp">
 			  <div class="card-header h3 bg-warning font-weight-bold text-center text-danger">SORRY!!!</div>
 			  <div class="card-body">
 			  	<p class="card-text">{{err}}</p>
@@ -9,23 +9,26 @@
 			</div>
 		</div>
 	</div>
-	<div class="my-5 row justify-content-center"
-	*ngFor=" let blog of blogs">
-		<div class="col">
-			<div class="card border-0 box-shadow--2dp">
-			  <a routerLink="{{blog.id}}" routerLinkActive="active">
-			    <div class="card-header h3 bg-primary font-weight-bold text-center text-white">{{blog.subject}}</div>
+	<div class="mb-5 row">
+		<div class="card-columns">
+			<div *ngFor=" let blog of blogs"
+			class="card border-0 box-shadow--2dp">
+			  <a routerLink="{{blog.id}}">
+			    <div class="card-header bg-primary font-weight-bold text-center text-white">{{blog.subject}}
+			    </div>
 			  </a>
 			  <div class="card-body">
 			  	<p class="card-text" [innerHTML] = "blog.content || safeStyle"></p>
+			  	<div class="text-right">
+  	  		  	<a class="text-success font-weight-bold" routerLink="/{{blog.author.username}}">
+  	  			  	By : {{blog.author.username || 'Anonymous'}}
+  	  		  	</a>
+  	  		  	</div>
 			  </div>
 			  <div class="card-footer py-2">
-			  	<a routerLink="/{{blog.author.username}}" routerLinkActive="active">
-				  	<span class="float-left text-success font-weight-bold">Author : {{blog.author.username || 'Anonymous'}}
-					</span>
-			  	</a>
-			  	<small>
-			  	<span class="float-right">Modified : {{blog.last_modified}}</span></small>
+			  	<div>
+			  		<small>Modified : {{blog.last_modified}}</small>
+			  	</div>
 		  	  </div>
 			</div>
 		</div>

@@ -11,19 +11,12 @@ export class HeaderComponent implements OnInit {
 
   loggedIn:boolean = false;
 
-  constructor(private auth:AuthService) { 
-    this.auth.isAuth$.subscribe(val => this.loggedIn = val);
-  }
+  constructor(private auth:AuthService) {}
 
   ngOnInit() {
-  	this.loggedIn =  this.checkLogin();
+    this.auth.isAuth$
+             .subscribe(val => {this.loggedIn = val});
   }
-
-	checkLogin():boolean {
-		if (localStorage.getItem('token') !== null)
-			return true;
-		return false
-	};
 
   logout(){
     this.auth.logout();

@@ -10,7 +10,9 @@ export class BlogsService {
 	private headers: Headers = new Headers({'Content-Type': 'application/json'});
 	private blogs:Blog[];
 
-	constructor(private http:Http) {}
+	constructor(private http:Http) {
+		this.getBlogs();
+	}
 
 	getBlogs(): Promise<Blog[]> {
 		if (this.blogs != null)
@@ -23,13 +25,27 @@ export class BlogsService {
 				.catch(this.handleError);
 	}
 
-	getBlog(id:number):Promise<Blog>{
+	getBlog(id:number,cnt?:number):Promise<Blog>{
+		if (cnt)
+			return Promise.reject(null);
 		if (this.blogs != null)
 			return Promise.resolve(this.blogs.filter(b => b.id === id)[0]);
 		else{
-			return this.getBlogs()
-				.then(blgs => this.getBlog(id));
+			return this.delay(2000)
+				.then(v => this.getBlog(id,1));
 		}
+	}
+
+	newPost(blog:Blog):Promise<Blog>{
+		let url = `${this.BASE_URL}/newPost`;
+		return this.http.post(url,blog,{headers:this.headers})
+						.toPromise()
+						.then(res => {
+							let blg:Blog = res.json().data as Blog;
+							this.blogs.push(blg);
+							return blg.id;
+						})
+						.catch(this.handleError);
 	}
 
 	getUser(username:string):Promise<User>{
@@ -46,5 +62,9 @@ export class BlogsService {
 
 	private handleError(err:any):Promise<any> {
 	  return Promise.reject(err.message || err);
+	}
+
+	private delay(ms: number) {
+	    return new Promise(resolve => setTimeout(resolve, ms));
 	}
 }

@@ -17,7 +17,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('loggedUser')) as User;
-    console.log(this.user);
   }
 
   removeUser(){

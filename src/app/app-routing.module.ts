@@ -10,6 +10,7 @@ import { BlogComponent } from './components/blog/blog.component';
 import { ValidGuard } from './guard/valid.guard';
 import { LoginGuard } from './guard/loginRedirect.gaurd';
 import { AuthorComponent } from './components/author/author.component';
+import { NewPostComponent } from './components/new-post/new-post.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,11 @@ const routes: Routes = [
 		path:'login',
 		component:LoginComponent,
 		canActivate : [LoginGuard]
+	},
+	{
+		path:'newPost',
+		component:NewPostComponent,
+		canActivate:[ValidGuard]
 	},
 	{ 
 		path:'blogs',
